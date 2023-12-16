@@ -1,4 +1,5 @@
 import * as api from "@/api/site";
+import { Search } from "@/components/site/Search";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 }
 
 const PageEvent = async ({ params }: Props) => {
-    const eventItem = await api.getEvent(parseInt(params.id));
+    const eventItem = await api.getEventById(parseInt(params.id));
     if (!eventItem || !eventItem.status) return redirect('/');
 
     return (
@@ -18,6 +19,8 @@ const PageEvent = async ({ params }: Props) => {
                 <h1 className="text-3xl mt-5 mb-2">{eventItem.title}</h1>
                 <p className="text-sm mb-5">{eventItem.description}</p>
             </header>
+
+            <Search id={eventItem.id} />
 
             <footer className="mt-5 text-sm">Criado por alguem</footer>
         </main>
