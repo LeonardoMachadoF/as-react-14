@@ -10,7 +10,7 @@ interface Props {
     id: number;
 }
 
-export const Search = ({ id }: Props) => {
+export function Search({ id }: Props) {
     const [results, setResults] = useState<SearchResult>();
     const [loading, setLoading] = useState(false);
 

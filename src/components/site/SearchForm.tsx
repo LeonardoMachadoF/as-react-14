@@ -8,7 +8,7 @@ interface Props {
     loading: boolean;
 }
 
-export const SearchForm = ({ onSearchButton, loading }: Props) => {
+export function SearchForm({ onSearchButton, loading }: Props) {
     const [cpfInput, setCpfInput] = useState("");
     return (
         <div>

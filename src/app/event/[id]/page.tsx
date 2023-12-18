@@ -8,7 +8,7 @@ interface Props {
     }
 }
 
-const PageEvent = async ({ params }: Props) => {
+async function PageEvent({ params }: Props) {
     const eventItem = await api.getEventById(parseInt(params.id));
     if (!eventItem || !eventItem.status) return redirect('/');
 

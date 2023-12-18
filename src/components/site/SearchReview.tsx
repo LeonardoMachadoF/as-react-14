@@ -4,7 +4,7 @@ interface Props {
     results: SearchResult;
 }
 
-export const SearchReview = ({ results }: Props) => {
+export function SearchReview({ results }: Props) {
     return (
         <div>
             <p className="text-3xl">{results.person.name}</p>
