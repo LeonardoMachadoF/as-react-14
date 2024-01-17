@@ -1,6 +1,7 @@
 "use client";
 import { Event } from "@/types/Event";
 import { EventItem, EventItemNotFound } from "./events/EventItem";
+import { ItemButton } from "./ItemButton";
 
 type Props = { events: Event[] }
 
@@ -9,7 +10,10 @@ function AdminPage({ events }: Props) {
         <div>
             <div className="p-3 flex items-center">
                 <h1 className="text-2xl flex-1">Eventos</h1>
-                <div>...</div>
+                <ItemButton
+                    icon="plus"
+                    onClick={() => { }}
+                />
             </div>
 
             <div className="my-3">
