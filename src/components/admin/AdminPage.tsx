@@ -1,10 +1,10 @@
 "use client";
-import * as api from "@/api/admin";
 import { Event } from "@/types/Event";
-import { useEffect, useState } from "react";
+import { EventItem, EventItemNotFound } from "./events/EventItem";
 
-function AdminPage({ events }: { events: Event[] }) {
+type Props = { events: Event[] }
 
+function AdminPage({ events }: Props) {
     return (
         <div>
             <div className="p-3 flex items-center">
@@ -14,10 +14,11 @@ function AdminPage({ events }: { events: Event[] }) {
 
             <div className="my-3">
                 {events.length > 0
-                    ? events.map(item => (
-                        <div key={item.id}>{item.title}</div>
+                    ? events.map(event => (
+                        <EventItem key={event.id} event={event} />
                     ))
-                    : <div>Nenhum evento encontrado...</div>}
+                    : <EventItemNotFound />
+                }
             </div>
         </div>
     )
