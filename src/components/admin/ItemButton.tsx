@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { IconType } from "react-icons";
-import { FaPlus } from "react-icons/fa";
+import { FaLink, FaPlus, FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 type Props = {
-    icon: "plus";
+    icon: "plus" | "edit" | "remove" | "link";
     label?: string;
     onClick?: () => void;
     href?: string;
@@ -13,7 +13,10 @@ type Props = {
 
 export function ItemButton({ icon, href, label, onClick, replace, target }: Props) {
     const icons = {
-        plus: <FaPlus />
+        plus: <FaPlus />,
+        edit: <FaRegEdit />,
+        remove: <FaRegTrashAlt />,
+        link: <FaLink />
     }
 
     const content = (

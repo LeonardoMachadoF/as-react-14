@@ -19,7 +19,7 @@ function AdminPage({ events }: Props) {
             <div className="my-3">
                 {events.length > 0
                     ? events.map(event => (
-                        <EventItem key={event.id} event={event} />
+                        <EventItem key={event.id} event={event} openModal={() => { }} refreshAction={() => { }} />
                     ))
                     : <EventItemNotFound />
                 }
