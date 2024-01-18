@@ -1,5 +1,6 @@
 import { Event } from "@/types/Event";
 import { ItemButton } from "../ItemButton";
+import * as api from "@/api/admin";
 
 export function EventItemPlaceholder() {
     return (
@@ -15,17 +16,20 @@ export function EventItemNotFound() {
 
 type Props = {
     event: Event;
-    refreshAction: () => void;
+    refreshAction: (id: number) => void;
     openModal: (event: Event) => void;
 }
 
 export function EventItem({ event, refreshAction, openModal }: Props) {
     function handleEditButton() {
-        return openModal(event);
+        openModal(event);
     }
 
-    function handleDeleteButton() {
-
+    async function handleDeleteButton() {
+        if (confirm("Tem certeza que deseja excluir esse evento?")) {
+            await api.deleteEvent(event.id);
+            refreshAction(event.id);
+        }
     }
 
 
@@ -50,7 +54,7 @@ export function EventItem({ event, refreshAction, openModal }: Props) {
                 <ItemButton
                     icon="remove"
                     label="Excluir"
-                    onClick={handleEditButton}
+                    onClick={handleDeleteButton}
                 />
             </div>
         </div>

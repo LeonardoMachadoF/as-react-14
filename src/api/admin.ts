@@ -9,3 +9,11 @@ export async function login(password: string) {
     } catch (err) { return false; }
 }
 
+export async function deleteEvent(id: number) {
+    const token = getCookie("token");
+    const json = await req.delete(`/admin/events/${id}`, {
+        headers: { "Authorization": `Token ${token}` }
+    });
+
+    return !json.data.error;
+}
