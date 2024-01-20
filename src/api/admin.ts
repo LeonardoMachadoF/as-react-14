@@ -17,3 +17,16 @@ export async function deleteEvent(id: number) {
 
     return !json.data.error;
 }
+
+type AddEventData = {
+    title: string;
+    description: string;
+    grouped: boolean;
+}
+export async function addEvent(data: AddEventData): Promise<Event | false> {
+    const token = getCookie("token");
+    const json = await req.post(`/admin/events`, data, {
+        headers: { "Authorization": `Token ${token}` }
+    })
+    return json.data.event as Event ?? false;
+} 

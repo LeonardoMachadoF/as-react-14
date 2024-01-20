@@ -5,6 +5,7 @@ import { ItemButton } from "./ItemButton";
 import { useState } from "react";
 import { ModalScreens } from "@/types/ModalSceens";
 import { Modal } from "./Modal";
+import { EventAdd } from "./events/EventAdd";
 
 type Props = { events: Event[] }
 
@@ -12,9 +13,14 @@ function AdminPage({ events }: Props) {
     const [eventsFiltered, setEventsFiltereds] = useState(events);
     const [modalScreen, setModalScreen] = useState<ModalScreens>(null);
 
-    const handleRefreshAction = (id: number) => {
+    const handleDeleteAction = (id: number) => {
         let newEventsList = eventsFiltered.filter(e => e.id !== id);
         setEventsFiltereds(newEventsList);
+    }
+
+    const handleAddAction = (event: Event) => {
+        setEventsFiltereds(itens => [...itens, event]);
+        setModalScreen(null);
     }
 
     return (
@@ -30,7 +36,7 @@ function AdminPage({ events }: Props) {
             <div className="my-3">
                 {eventsFiltered.length > 0
                     ? eventsFiltered.map(event => (
-                        <EventItem key={event.id} event={event} openModal={() => { }} refreshAction={handleRefreshAction} />
+                        <EventItem key={event.id} event={event} openModal={() => { }} refreshAction={handleDeleteAction} />
                     ))
                     : <EventItemNotFound />
                 }
@@ -38,7 +44,7 @@ function AdminPage({ events }: Props) {
 
             {modalScreen &&
                 <Modal onClose={() => setModalScreen(null)}>
-                    Tipo: {modalScreen}
+                    {modalScreen === 'add' && <EventAdd refreshAction={handleAddAction} />}
                 </Modal>
             }
         </div>
