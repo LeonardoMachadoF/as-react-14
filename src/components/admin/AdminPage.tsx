@@ -3,11 +3,14 @@ import { Event } from "@/types/Event";
 import { EventItem, EventItemNotFound } from "./events/EventItem";
 import { ItemButton } from "./ItemButton";
 import { useState } from "react";
+import { ModalScreens } from "@/types/ModalSceens";
+import { Modal } from "./Modal";
 
 type Props = { events: Event[] }
 
 function AdminPage({ events }: Props) {
     const [eventsFiltered, setEventsFiltereds] = useState(events);
+    const [modalScreen, setModalScreen] = useState<ModalScreens>(null);
 
     const handleRefreshAction = (id: number) => {
         let newEventsList = eventsFiltered.filter(e => e.id !== id);
@@ -20,7 +23,7 @@ function AdminPage({ events }: Props) {
                 <h1 className="text-2xl flex-1">Eventos</h1>
                 <ItemButton
                     icon="plus"
-                    onClick={() => { }}
+                    onClick={() => setModalScreen("add")}
                 />
             </div>
 
@@ -32,6 +35,12 @@ function AdminPage({ events }: Props) {
                     : <EventItemNotFound />
                 }
             </div>
+
+            {modalScreen &&
+                <Modal onClose={() => setModalScreen(null)}>
+                    Tipo: {modalScreen}
+                </Modal>
+            }
         </div>
     )
 }
