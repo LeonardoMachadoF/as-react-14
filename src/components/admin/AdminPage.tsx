@@ -6,12 +6,15 @@ import { useState } from "react";
 import { ModalScreens } from "@/types/ModalSceens";
 import { Modal } from "./Modal";
 import { EventAdd } from "./events/EventAdd";
+import { EventEdit } from "./events/EventEdit";
+import { useRouter } from "next/navigation";
 
 type Props = { events: Event[] }
 
 function AdminPage({ events }: Props) {
     const [eventsFiltered, setEventsFiltereds] = useState(events);
     const [modalScreen, setModalScreen] = useState<ModalScreens>(null);
+    const [selectedEvent, setSelectedEvent] = useState<Event>();
 
     const handleDeleteAction = (id: number) => {
         let newEventsList = eventsFiltered.filter(e => e.id !== id);
@@ -21,6 +24,11 @@ function AdminPage({ events }: Props) {
     const handleAddAction = (event: Event) => {
         setEventsFiltereds(itens => [...itens, event]);
         setModalScreen(null);
+    }
+
+    function editEvent(event: Event) {
+        setSelectedEvent(event);
+        setModalScreen('edit');
     }
 
     return (
@@ -36,7 +44,7 @@ function AdminPage({ events }: Props) {
             <div className="my-3">
                 {eventsFiltered.length > 0
                     ? eventsFiltered.map(event => (
-                        <EventItem key={event.id} event={event} openModal={() => { }} refreshAction={handleDeleteAction} />
+                        <EventItem key={event.id} event={event} openModal={event => editEvent(event)} refreshAction={handleDeleteAction} />
                     ))
                     : <EventItemNotFound />
                 }
@@ -45,6 +53,7 @@ function AdminPage({ events }: Props) {
             {modalScreen &&
                 <Modal onClose={() => setModalScreen(null)}>
                     {modalScreen === 'add' && <EventAdd refreshAction={handleAddAction} />}
+                    {modalScreen === 'edit' && <EventEdit event={selectedEvent} refreshAction={() => { }} />}
                 </Modal>
             }
         </div>
