@@ -1,6 +1,7 @@
 import { getCookie } from "cookies-next";
 import { req } from "./axios"
 import { Event } from "@/types/Event";
+import { Group } from "@/types/Group";
 
 export async function login(password: string) {
     try {
@@ -43,4 +44,48 @@ export async function updateEvent(id: number, data: UpdateEventData): Promise<Ev
         headers: { "Authorization": `Token ${token}` }
     })
     return json.data.event as Event ?? false;
+}
+
+export async function getGroups(eventId: number) {
+    const token = getCookie("token");
+    const json = await req.get(`/admin/events/${eventId}/groups`, {
+        headers: { "Authorization": `Token ${token}` }
+    });
+
+    return json.data.groups as Group[] ?? [];
+}
+
+
+type AddGroupData = {
+    name: string;
+}
+export async function addGroup(eventId: number, data: AddGroupData) {
+    const token = getCookie("token");
+    const json = await req.post(`/admin/events/${eventId}/groups`, data, {
+        headers: { "Authorization": `Token ${token}` }
+    });
+
+    return json.data.group as Group ?? false;
+}
+
+
+type UpdateGroupData = {
+    name: string;
+}
+export async function updateGroup(eventId: number, id: number, data: UpdateGroupData) {
+    const token = getCookie("token");
+    const json = await req.put(`/admin/events/${eventId}/groups/${id}`, data, {
+        headers: { "Authorization": `Token ${token}` }
+    });
+
+    return json.data.group as Group ?? false;
+}
+
+export async function deleteGroup(eventId: number, id: number) {
+    const token = getCookie("token");
+    const json = await req.delete(`/admin/events/${eventId}/groups/${id}`, {
+        headers: { "Authorization": `Token ${token}` }
+    });
+
+    return !json.data.error;
 }
