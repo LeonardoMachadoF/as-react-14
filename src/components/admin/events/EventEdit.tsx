@@ -3,7 +3,8 @@ import { Event } from "@/types/Event"
 import { useState } from "react";
 import { EventTabInfo } from "./EventTabInfo";
 import { EventTabGroup } from "../groups/EventTabGroup";
-import { EventTabPeople } from '../people/EventTabPeople.1';
+import { EventTabPeople } from "../people/EventTabPeople";
+
 
 type Props = {
     event: Event | undefined;
