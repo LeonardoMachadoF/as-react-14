@@ -11,7 +11,7 @@ type Props = {
 export function PersonItem({ item, onEdit, refreshAction }: Props) {
     async function handleDeleteButton() {
         if (confirm("tem certeza que deseja excluir essa pessoa?")) {
-            await api.deletePerson(item.id_event, item.id_group, item.id);
+            await api.deletePerson({ eventId: item.id_event, groupId: item.id_group, id: item.id });
             refreshAction();
         }
     }

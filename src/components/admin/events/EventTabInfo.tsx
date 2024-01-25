@@ -38,11 +38,14 @@ export function EventTabInfo({ event, refreshAction }: Props) {
     async function handleSaveButton() {
         if (errors.length > 0) return;
         setLoading(true);
-        const updateEvent = await api.updateEvent(event.id, {
-            title: titleField,
-            description: descriptionField,
-            grouped: groupedField,
-            status: statusField
+        const updateEvent = await api.updateEvent({
+            id: event.id,
+            data: {
+                title: titleField,
+                description: descriptionField,
+                grouped: groupedField,
+                status: statusField
+            }
         })
         setLoading(false);
         if (updateEvent) {

@@ -30,7 +30,7 @@ export function GroupEdit({ group, refreshAction }: Props) {
         if (errors.length > 0) return;
 
         setLoading(true);
-        const updatedGroup = await api.updateGroup(group.id_event, group.id, { name: nameField });
+        const updatedGroup = await api.updateGroup({ eventId: group.id_event, id: group.id, name: nameField });
         setLoading(false);
 
         if (updatedGroup) {

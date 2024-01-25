@@ -24,7 +24,7 @@ export function GroupAdd({ eventId, refreshAction }: Props) {
         const data = groupSchema.safeParse({ nameField });
         if (!data.success) return setErros(getErrorForZod(data.error));
         setLoading(true);
-        const newGroup = await api.addGroup(eventId, { name: nameField });
+        const newGroup = await api.addGroup({ eventId, name: nameField });
         setLoading(false);
         if (newGroup) {
             setNameField("");

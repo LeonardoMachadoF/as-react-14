@@ -33,9 +33,13 @@ export function PersonEdit({ person, refreshAction }: Props) {
         if (errors.length > 0) return;
 
         setLoading(true);
-        const updatedPerson = await api.updatePerson(
-            person.id_event, person.id_group, person.id, { name: person.name, cpf: person.cpf }
-        );
+        const updatedPerson = await api.updatePerson({
+            eventId: person.id_event,
+            groupId: person.id_group,
+            id: person.id,
+            cpf: person.cpf,
+            name: person.name
+        });
         setLoading(false);
         if (updatedPerson) {
             refreshAction()

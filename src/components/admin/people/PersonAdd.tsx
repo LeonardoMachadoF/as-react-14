@@ -29,7 +29,7 @@ export function PersonAdd({ eventId, groupId, refreshAction }: Props) {
         if (!data.success) return setErros(getErrorForZod(data.error));
 
         setLoading(true);
-        const newPerson = await api.addPerson(eventId, groupId, { name: nameField, cpf: cpfField });
+        const newPerson = await api.addPerson({ cpf: cpfField, eventId, groupId, name: nameField });
         setLoading(false);
 
         if (newPerson) {

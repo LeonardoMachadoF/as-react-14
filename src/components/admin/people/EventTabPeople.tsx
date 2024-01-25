@@ -39,7 +39,7 @@ export const EventTabPeople = ({ eventId }: Props) => {
         setSelectedPerson(undefined);
         setPeople([]);
         setPeopleLoading(true);
-        const peopleList = await api.getPeople(eventId, selectedGroupId);
+        const peopleList = await api.getPeople({ eventId, groupId: selectedGroupId });
         setPeopleLoading(false);
         setPeople(peopleList);
     }
