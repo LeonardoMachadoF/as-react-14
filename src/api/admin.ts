@@ -18,8 +18,7 @@ async function apiRequest(url: string, method: string, data?: any) {
 
         return json;
     } catch (error) {
-        console.log(error);
-        alert("Ocorreu algum erro");
+        throw error;
     }
 }
 
